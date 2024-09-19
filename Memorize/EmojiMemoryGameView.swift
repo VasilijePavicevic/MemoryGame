@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// prvi commit od Strahinje - obrisati kasnije
+
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
