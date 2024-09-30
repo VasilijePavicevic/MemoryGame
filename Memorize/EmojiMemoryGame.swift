@@ -9,9 +9,9 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
+    @AppStorage("isOn") private var isOn: Bool = false
 
-
-    private static let emojis = ["👻","🫀","⛑️","🌮","🏀","🚌","🏡","💣","🪓","📍","🃏","🆗"]
+    private static let emojis = ["🎾","🎿","🎱","🏑","🏀","🤸‍♂️","🤽‍♂️","🏄‍♂️","🥋","🏓","🏈","🏋️‍♀️"]
     
     private static func createMemoryGame() -> MemoryGame<String>{
         return MemoryGame(numberOfPairsOfCards: 10){ pairIndex in
@@ -32,7 +32,12 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     var color: Color {
-        .green
+        if isOn {
+            
+            .black}
+        else {
+            .green
+        }
     }
     
     var score: Int {

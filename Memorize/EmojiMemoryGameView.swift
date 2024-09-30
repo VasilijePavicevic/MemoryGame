@@ -11,7 +11,7 @@ import SwiftUI
 struct EmojiMemoryGameView: View {
     typealias Card = MemoryGame<String>.Card
     @ObservedObject var viewModel: EmojiMemoryGame
-    
+    @AppStorage("isOn") private var isOn: Bool = false
     private let aspectRatio: CGFloat = 2/3
     private let spacing: CGFloat = 4
     private let dealAnimation: Animation = .easeInOut(duration: 1)
@@ -29,8 +29,17 @@ struct EmojiMemoryGameView: View {
                 deck.foregroundColor(viewModel.color)
                 Spacer()
                 shuffle
+                
             }
-            .font(.largeTitle )
+            .font(.title )
+            HStack{
+                Toggle(isOn: $isOn) {
+                    Text("Change the color of the cards")
+                        .font(.title2)
+        
+                }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+            }
         }
         .padding()
     }
