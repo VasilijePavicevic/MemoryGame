@@ -79,7 +79,7 @@ extension Animation {
                 CardView(Card(isFaceUp: true, isMatched: true,content: "X", id: "test1"))
             }
             .padding()
-            .foregroundColor(.green)
+            .foregroundColor(.blue)
         }
     }
 }

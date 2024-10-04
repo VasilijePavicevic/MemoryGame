@@ -42,10 +42,10 @@ class EmojiMemoryGame: ObservableObject {
     
     var color: Color {
         if isOn {
-            
-            .blue}
+            .yellow
+        }
         else {
-            .green
+            .blue
         }
     }
     
