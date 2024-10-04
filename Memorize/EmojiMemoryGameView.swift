@@ -17,7 +17,7 @@ struct EmojiMemoryGameView: View {
     private let dealAnimation: Animation = .easeInOut(duration: 1)
     private let dealInterval: TimeInterval = 0.15
     private let deckWidth: CGFloat = 50
-
+    
     
     
     var body: some View {
@@ -36,13 +36,71 @@ struct EmojiMemoryGameView: View {
                 Toggle(isOn: $isOn) {
                     Text("Change the color of the cards")
                         .font(.title2)
-        
+                    
                 }
-                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                .toggleStyle(SwitchToggleStyle(tint: .blue))
             }
+            HStack {
+                themeVehicles
+                    .frame(maxWidth: .infinity)
+                
+                themeAnimals
+                    .frame(maxWidth: .infinity)
+                
+                themeNature
+                    .frame(maxWidth: .infinity)
+            }
+            .padding(.horizontal)
+            .font(.largeTitle)
         }
+        
         .padding()
     }
+        var themeVehicles: some View {
+            Button {
+                viewModel.setTheme("vehicles")
+            } label: {
+                VStack {
+                    Image(systemName: "car")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                    
+                    Text("Vehicles")
+                        .font(.caption)
+                }
+            }
+        }
+        var themeAnimals: some View {
+            Button {
+                viewModel.setTheme("animals")
+            } label: {
+                VStack {
+                    Image(systemName: "cat")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                    
+                    Text("Animals")
+                        .font(.caption)
+                }
+            }
+        }
+        
+        var themeNature: some View {
+            Button {
+                viewModel.setTheme("nature")
+               
+            } label: {
+                VStack {
+                    Image(systemName: "mountain.2")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                    
+                    Text("Nature")
+                        .font(.caption)
+                }
+            }
+        }
+    
     
     private var score: some View {
         Text("Score: \(viewModel.score)")

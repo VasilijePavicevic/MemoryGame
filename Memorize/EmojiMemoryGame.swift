@@ -10,13 +10,22 @@ import SwiftUI
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemoryGame<String>.Card
     @AppStorage("isOn") private var isOn: Bool = false
-
+    @Published private var model: MemoryGame<String>
+    private var currentTheme: [String] = emojis
     private static let emojis = ["🎾","🎿","🎱","🏑","🏀","🤸‍♂️","🤽‍♂️","🏄‍♂️","🥋","🏓","🏈","🏋️‍♀️"]
+    private static let emojiVehicles = ["🚙","🚌","🛴","🚲","🚃","🚛","🛵","🚜","🚕","🚎","🏍️","🏎️"]
+    private static let emojisAnimals = ["🐶","🐱","🐭","🐹","🐰","🐮","🐷","🐧","🐦","🐤","🦆","🐦‍⬛"]
+    private static let emojisNature = ["🌵","🌲","🌳","🌴","🌸","🌱","🌿","🍂","🌼","🍃","🌻","🍁"]
     
-    private static func createMemoryGame() -> MemoryGame<String>{
-        return MemoryGame(numberOfPairsOfCards: 10){ pairIndex in
+    init() {
+        
+            self.model = EmojiMemoryGame.createMemoryGame(with: EmojiMemoryGame.emojis)
+        }
+    
+    private static func createMemoryGame(with theme: [String]) -> MemoryGame<String>{
+        return MemoryGame(numberOfPairsOfCards: min(theme.count, 10)){ pairIndex in
             if emojis.indices.contains(pairIndex) {
-                return emojis[pairIndex]
+                return theme[pairIndex]
             } else {
                 return "?"
             }
@@ -25,7 +34,7 @@ class EmojiMemoryGame: ObservableObject {
     
     
     
-    @Published private var model = createMemoryGame()
+   // @Published private var model = createMemoryGame(with: emojis)
     
     var cards: Array<Card>{
         return model.cards
@@ -34,7 +43,7 @@ class EmojiMemoryGame: ObservableObject {
     var color: Color {
         if isOn {
             
-            .black}
+            .blue}
         else {
             .green
         }
@@ -52,5 +61,18 @@ class EmojiMemoryGame: ObservableObject {
     func choose(_ card: Card){
         model.choose( card)
     }
+    func setTheme(_ theme: String) {
+           switch theme {
+           case "vehicles":
+               currentTheme = EmojiMemoryGame.emojiVehicles
+           case "animals":
+               currentTheme = EmojiMemoryGame.emojisAnimals
+           case "nature":
+               currentTheme = EmojiMemoryGame.emojisNature
+           default:
+               currentTheme = EmojiMemoryGame.emojis // default
+           }
+           model = EmojiMemoryGame.createMemoryGame(with: currentTheme)
+       }
 }
 
