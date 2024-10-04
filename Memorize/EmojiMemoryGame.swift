@@ -45,7 +45,7 @@ class EmojiMemoryGame: ObservableObject {
             .yellow
         }
         else {
-            .blue
+            .black
         }
     }
     
